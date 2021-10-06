@@ -1,0 +1,1 @@
+This repository contains the official implementation of the paper "CorticalFlow: A Diffeomorphic Mesh Transformer for Cortical Surface Reconstruction" accepted for publication in the NEURIPS21 conference. (In Construction!!!)

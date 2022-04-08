@@ -1,5 +1,7 @@
 # CorticalFlow - Deep Learning Model For Cortical Surface Reconstruction From Magnetic Resonance Image
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zQoMHwTHK2k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 This repository contains the official implementation of CorticalFlow (CF), introduced in ***"CorticalFlow: A Diffeomorphic Mesh Transformer Network for Cortical Surface Reconstruction"***, and its improved version CorticalFlow++ (CFPP), introduced in ***"CorticalFlow++: Boosting Cortical Surface Reconstruction Accuracy, Regularity, and Interoperability"***. 
 
 If you find our code or papers useful, please cite

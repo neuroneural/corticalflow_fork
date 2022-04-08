@@ -105,4 +105,3 @@ with <IN_FILE> a CSV input file whose each row has the columns subject_id, surfa
 
 ## Acknowledgment
 This research was supported by [Maxwell plus](https://maxwellplus.com/).
-

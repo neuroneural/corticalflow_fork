@@ -46,9 +46,10 @@ RUN make
 RUN make install
 WORKDIR /app
 RUN conda env create -f environment.yml
-SHELL ["conda", "run", "-n", "deepcsr", "/bin/bash", "-c"]
-RUN git clone https://github.com/neuroneural/DeepCSR-fork.git
-WORKDIR /app/DeepCSR-fork/docker/nighres
+SHELL ["conda", "run", "-n", "corticalflow", "/bin/bash", "-c"]
+RUN pip install jcc==3.12
+RUN git clone https://github.com/neuroneural/corticalflow_fork.git
+WORKDIR /app/corticalflow_fork/docker/nighres
 RUN git checkout tags/docker1
 RUN ./build.sh
 RUN python3 -m pip install .

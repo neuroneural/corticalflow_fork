@@ -1,8 +1,11 @@
-#!/bin/bash -p
-. /opt/miniconda3/bin/activate topofit
-#enter the command you would like to run below or modify this script to be more dynamic
-#eg. /topofit/evaluate ...
-#eg. /topofit/train ... 
-#eg. /topofit/preprocess ...
-#the following example requires --bind yourtopofitclone:/topofit/
-/topofit/train -o /data/users2/washbee/topofit/output -t /topofit/train.txt -v /topofit/val.txt --hemi $1
+#!/bin/bash
+. /opt/miniconda3/bin/activate corticalflow
+export PYTHONPATH=/corticalflow/external/mesh_contains/ 
+#source $FREESURFER_HOME/SetUpFreeSurfer.sh 
+python /corticalflow/train.py dataset.path=/subj/ \
+  dataset.split_file=/corticalflow/subjs.csv \
+dataset.train_split_name=train \
+dataset.val_split_name=val \
+dataset.surface_name='lh_white' \
+model.templates=['/corticalflow/resources/smooth_templates/lh_white_smooth_40k.obj','/corticalflow/resources/smooth_templates/lh_white_smooth_140k.obj','/corticalflow/resources/smooth_templates/lh_white_smooth_380k.obj'] \
+outputs.output_dir=/data/users2/washbee/corticalflow/ouput_dir

@@ -63,9 +63,9 @@ def csr_dataset_factory(dataset_type, hemisphere, transforms, **kwargs):
         data_desc = pd.read_csv(kwargs['split_file'])
         data_desc = data_desc[data_desc['split'] == kwargs['split_name']]            
         list_subjects = list(data_desc.subject.values)
-        list_mris = list(data_desc.subject.apply(lambda subj: os.path.join(kwargs['dataset_path'], subj,  'mri.nii.gz')).values)
+        list_mris = list(data_desc.subject.apply(lambda subj: os.path.join(kwargs['dataset_path'], str(subj),  'mri.nii.gz')).values)
         if kwargs['surface_name']:
-            list_surfaces = list(data_desc.subject.apply(lambda subj: os.path.join(kwargs['dataset_path'], subj, '{}.stl'.format(kwargs['surface_name']))).values)   
+            list_surfaces = list(data_desc.subject.apply(lambda subj: os.path.join(kwargs['dataset_path'], str(subj), '{}.stl'.format(kwargs['surface_name']))).values)   
             assert hemisphere == kwargs['surface_name'].split('_')[0]     
     else:
         raise ValueError('dataset type option is not supported')

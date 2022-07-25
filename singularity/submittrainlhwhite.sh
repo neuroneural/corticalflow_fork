@@ -16,7 +16,7 @@
 
 sleep 5s
 
-singularity exec --nv --bind $HOME/projects/corticalflow:/corticalflow,/data:/data,/data/users2/washbee/outdir:/subj /data/users2/washbee/containers/corticalflow3.sif /corticalflow/singularity/train.sh &
+singularity exec --nv --bind $HOME/projects/corticalflow:/corticalflow,/data:/data,/data/users2/washbee/outdir:/subj /data/users2/washbee/containers/corticalflow3.sif /corticalflow/singularity/trainlhwhite.sh &
 
 wait
 

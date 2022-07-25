@@ -8,4 +8,4 @@ dataset.train_split_name=train \
 dataset.val_split_name=val \
 dataset.surface_name='lh_white' \
 model.templates=['/corticalflow/resources/smooth_templates/lh_white_smooth_40k.obj','/corticalflow/resources/smooth_templates/lh_white_smooth_140k.obj','/corticalflow/resources/smooth_templates/lh_white_smooth_380k.obj'] \
-outputs.output_dir=/data/users2/washbee/corticalflow/ouput_dir
+outputs.output_dir=/data/users2/washbee/corticalflow/ouput_dir_lh_white

@@ -1,11 +1,17 @@
-# How to run the preprocessing
-      parallel singularity exec --bind /data:/data/,/home:/home/,/home/users/washbee1/projects/deepcsr:/deepcsr/ /data/users2/washbee/containers/deepcsr.sif /deepcsr/singularity/preprop.sh :::: dcsrarg.txt
+# Preprocessing
+preprocessing is similar to deepcsr except the implicit representations are not necessary. One could optimize the proprocessing by updating this for corticalflow and corticalflow++, but this has not been done yet. 
 
-# Time and resources 
-Takes about 15 minutes to run 1 patient (and patients will be run in parallel), and is cpu heavy instead of ram heavy. You will not see output for at least 14 minutes, but can monitor with top.
-# NO GPU REQUIRED
-You won't need gpus for preprocessing. 
-# SLURM SCRIPT ADDED 
-            SBATCH submit.sh
+See the following for preprocessing:  
+              https://github.com/neuroneural/DeepCSR-fork/blob/master/singularity/readme.md
+# Training 
+The training parameters are overridden in the trainlhwhite.sh or trainrhwhite.sh files. The default parameters are in ../configs/train.yaml file. If not in overridden, the defaults are used. 
 
-I think this tends to fail if you give it more than 39 cpus on the trends cluster setup. 
+to run training on slurm use:  
+      sbatch submittrainlhwhite.sh  
+and  
+                 sbatch submittrainrhwhite.sh  
+
+you could either duplicate this script for pial surfaces or use corticalflow++ method, which requires a white surface to exist to deform that surface to pial. 
+## To be continued for training 
+We plan to implement the corticalflow++ method for generating pial surfaces shortly then integrate these models into nobrainer.
+

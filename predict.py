@@ -134,9 +134,9 @@ def predict_app(cfg):
                     for d in range(len(pred_verts)):
                         if d in cfg.outputs.out_deform:
                             for b in range(pred_verts[d].shape[0]):
-                                subject_dir = os.path.join(cfg.outputs.output_dir, subject_ids[b])
+                                subject_dir = os.path.join(str(cfg.outputs.output_dir), str(subject_ids[b]))
                                 os.makedirs(subject_dir, exist_ok=True)
-                                mesh_output_filename_noext = os.path.join(subject_dir, "{}_{}_{}_Df{}".format(subject_ids[b], cfg.inputs.hemisphere, surface, d))                                
+                                mesh_output_filename_noext = os.path.join(str(subject_dir), "{}_{}_{}_Df{}".format(str(subject_ids[b]), cfg.inputs.hemisphere, surface, d))                                
                                 export_mesh(pred_verts[d][b], template_mesh.faces, mesh_output_filename_noext, cfg.outputs.out_format, surface)                                
 
             # log progress

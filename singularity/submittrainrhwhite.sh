@@ -1,12 +1,12 @@
 #!/bin/bash
 #SBATCH -n 1
-#SBATCH -c 10
+#SBATCH -c 5
 #SBATCH --mem=30g
 #SBATCH -p qTRDGPUH
 #SBATCH --gres=gpu:v100:1
 #SBATCH --nodelist=trendsdgx003.rs.gsu.edu 
 #SBATCH -t 3-00:00
-#SBATCH -J corticalflow
+#SBATCH -J corticalfr
 #SBATCH -e /data/users2/washbee/corticalflow/jobs/error%A.err
 #SBATCH -o /data/users2/washbee/corticalflow/jobs/out%A.out
 #SBATCH -A PSYC0002

@@ -4,6 +4,7 @@
 #SBATCH --mem=30g
 #SBATCH -p qTRDGPUH
 #SBATCH --gres=gpu:V100:1
+#SBATCH --nodelist=arctrddgx001
 #SBATCH -t 1-00:00
 #SBATCH -J cflhpi
 #SBATCH -e /data/users2/washbee/cfpp/jobs/error%A.err

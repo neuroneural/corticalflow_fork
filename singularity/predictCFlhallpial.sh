@@ -8,6 +8,7 @@ inputs.hemisphere='lh' \
 inputs.device='cuda:0' \
 inputs.template=/corticalflow/resources/neurips_templates/lh_pial_template_435k.stl \
 white_model=null \
+pial_model.nb_features='[[[16,32,32,32],[32,32,32,32,32,16,16]],[[16,32],[32,32,16,16]],[[16,32],[32,32,16,16]]]' \
 pial_model.integration_method='NeurIPS' \
 pial_model.integration_steps=7 \
 pial_model.share_flows=True \

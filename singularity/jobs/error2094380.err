@@ -1,0 +1,11 @@
+/corticalflow/predict.py:20: UserWarning: 
+The version_base parameter is not specified.
+Please specify a compatability version level, or None.
+Will assume defaults for version 1.1
+  @hydra.main(config_path="configs", config_name='predict')
+LexerNoViableAltException:  
+                           ^
+See https://hydra.cc/docs/next/advanced/override_grammar/basic for details
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+/corticalflow/singularity/predictCFPPlhallpial.sh: line 13: white_model.integration_steps=30: command not found

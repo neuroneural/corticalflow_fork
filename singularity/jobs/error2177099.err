@@ -1,0 +1,19 @@
+/corticalflow/predict.py:45: UserWarning: 
+The version_base parameter is not specified.
+Please specify a compatability version level, or None.
+Will assume defaults for version 1.1
+  @hydra.main(config_path="configs", config_name='predict')
+/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/hydra/_internal/hydra.py:127: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/next/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  configure_logging=with_log_configuration,
+Error executing job with overrides: ['inputs.data_type=formatted', 'inputs.path=/subj/', 'inputs.split_name=test', 'inputs.split_file=/corticalflow/subjs.csv', 'inputs.hemisphere=lh', 'inputs.device=cuda:0', 'inputs.template=/corticalflow/resources/smooth_templates/lh_white_smooth_380k.obj', 'white_model.nb_features=[[[16,32,32,32],[32,32,32,32,32,16,16]],[[16,32],[32,32,16,16]],[[16,32],[32,32,16,16]]]', 'white_model.integration_method=RK4', 'white_model.integration_steps=30', 'white_model.share_flows=True', 'white_model.model_checkpoint=/corticalflow/resources/trained_models/CFPP_LEFT_WHITE.pth', 'pial_model.nb_features=[[[16,32],[32,32,16,16]],[[16,32],[32,32,16,16]],[[16,32],[32,32,16,16]]]', 'pial_model.integration_method=RK4', 'pial_model.integration_steps=30', 'pial_model.share_flows=True', 'pial_model.model_checkpoint=/corticalflow/resources/trained_models/CFPP_LEFT_PIAL.pth', 'outputs.output_dir=/data/users2/washbee/corticalflow/cfpp/output_lh/', 'outputs.out_deform=[0,1,2]', 'outputs.out_format=freesurfer']
+Traceback (most recent call last):
+  File "/corticalflow/predict.py", line 115, in predict_app
+    printModelSize(cfg.white_model)
+  File "/corticalflow/predict.py", line 24, in printModelSize
+    for param in model.parameters():
+omegaconf.errors.ConfigAttributeError: Key 'parameters' is not in struct
+    full_key: white_model.parameters
+    object_type=dict
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

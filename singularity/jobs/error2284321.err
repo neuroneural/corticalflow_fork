@@ -1,0 +1,4 @@
+  File "/corticalflow/predict.py", line 276
+    print(pred_verts_white[-1])
+        ^
+SyntaxError: invalid syntax

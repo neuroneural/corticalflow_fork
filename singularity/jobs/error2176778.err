@@ -1,0 +1,5 @@
+/corticalflow/predict.py:32: UserWarning: 
+The version_base parameter is not specified.
+Please specify a compatability version level, or None.
+Will assume defaults for version 1.1
+  @hydra.main(config_path="configs", config_name='predict')

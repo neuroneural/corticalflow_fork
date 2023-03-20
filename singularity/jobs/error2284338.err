@@ -1,0 +1,4 @@
+  File "/corticalflow/predict.py", line 269
+    c            print('\n*********before pial model() \n', printSpaceUsage())
+                     ^
+SyntaxError: invalid syntax

@@ -13,18 +13,69 @@ import nibabel as nib
 import trimesh
 import datetime
 import nvidia_smi
+import socket
 
 import time
 import pynvml
 
+import hashlib
+
 from csv import writer
 
-def write_time2csv(model_name, t_sec):
-    List = [model_name, t_sec]
-    with open('/data/users2/washbee/speedrun/bm.events.csv', 'a') as f_object:
+import subprocess
+
+# Define the Bash command you want to run
+command = "ls /data/users2/washbee/speedrun/topofit-data"
+
+# Run the command and capture its output
+output = subprocess.check_output(command, shell=True, universal_newlines=True)
+
+print('ls ', output)
+
+file_handle = None  # Global variable to store the file object
+hostname = socket.gethostname()
+
+
+def get_data_hash(data):
+    # Convert data to a serialized string representation
+    tensor_bytes = data.numpy().tobytes()
+
+    # Compute the hash value of the serialized string
+    hash_object = hashlib.sha256(tensor_bytes)
+    data_hash = hash_object.hexdigest()
+
+    return data_hash
+
+
+
+def open_file(filename):
+    global file_handle
+    file_handle = open(filename, 'w')  # Open the file in read mode
+
+
+def close_file():
+    global file_handle
+    if file_handle:
+        file_handle.close()
+        file_handle = None
+        print("File closed.")
+    else:
+        print("No file is open.")
+
+
+def write_time2csv(model_name, t_sec, hash_subj_id, loading=False):
+    List = [model_name, t_sec,hostname, hash_subj_id]
+    print(t_sec)
+    filename = '/data/users2/washbee/speedrun/bm.events.csv'
+    if loading is True:
+        filename = '/data/users2/washbee/speedrun/bm.loading.csv'
+    
+        
+    with open(filename, 'a') as f_object:
         writer_object = writer(f_object)
         writer_object.writerow(List)
-        f_object.close()
+        f_object.flush()
+        #f_object.close()
 
 nvidia_smi.nvmlInit()
 
@@ -69,6 +120,9 @@ logger = logging.getLogger(__name__)
 
 @hydra.main(config_path="configs", config_name='predict')
 def predict_app(cfg):
+
+    a = datetime.datetime.now()
+
     # log for GPU utilization
     GPU_msgs = []
 
@@ -238,6 +292,10 @@ def predict_app(cfg):
     logger.info("predicting...")
     os.makedirs(cfg.outputs.output_dir, exist_ok=True)
     count = 0
+    b = datetime.datetime.now()
+    t_sec = (b-a).total_seconds()
+    write_time2csv('CorticalFlow', t_sec, str(subject_ids), loading=True)
+
     with torch.no_grad():                
         for ite, data in enumerate(test_dataloader):
             a = datetime.datetime.now()
@@ -316,20 +374,22 @@ def predict_app(cfg):
 
             ### Set Stage
             stage = '0 - End'
+            #hash_subj_id = get_data_hash(data)
+
             msgs = printSpaceUsage()
             GPU_msgs.append(stage + msgs + '\n\n\n')
 
 
             b = datetime.datetime.now()
             t_sec = (b-a).total_seconds()
-            write_time2csv('CorticalFlow', t_sec)
+            write_time2csv('CorticalFlow', t_sec, str(subject_ids))
             logger.info("{} total seconds for batch.".format(t_sec))
             
             # Check space usage 
             #print('g')
             printSpaceUsage()
 
-            exit()
+            #exit()
             # log progress
             count += len(subject_ids)
             if ite % 10 == 0:

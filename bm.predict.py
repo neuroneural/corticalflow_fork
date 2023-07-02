@@ -294,7 +294,7 @@ def predict_app(cfg):
     count = 0
     b = datetime.datetime.now()
     t_sec = (b-a).total_seconds()
-    write_time2csv('CorticalFlow', t_sec, str(subject_ids), loading=True)
+    write_time2csv('CorticalFlow', t_sec, "", loading=True)
 
     with torch.no_grad():                
         for ite, data in enumerate(test_dataloader):

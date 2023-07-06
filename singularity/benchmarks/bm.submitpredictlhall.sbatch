@@ -18,7 +18,7 @@ sleep 5s
 source /usr/share/lmod/lmod/init/bash
 module use /application/ubuntumodules/localmodules
 module load singularity/3.10.2
-singularity exec --nv --bind /data,/data/users2/washbee/speedrun/corticalflow_fork:/corticalflow,/data/users2/washbee/speedrun/deepcsr-preprocessed:/subj /data/users2/washbee/containers/speedrun/cf_bm_sandbox/ /corticalflow/singularity/benchmarks/bm.predictlhall.sh &
+singularity exec --nv --bind /data,/data/users2/washbee/speedrun/corticalflow_fork:/corticalflow,/data/users2/washbee/speedrun/deepcsr-preprocessed:/subj /data/users2/washbee/containers/speedrun/cfpp_bm2_sandbox/ /corticalflow/singularity/benchmarks/bm.predictlhall.sh &
 
 wait
 

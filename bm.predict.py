@@ -36,6 +36,58 @@ file_handle = None  # Global variable to store the file object
 hostname = socket.gethostname()
 
 
+def write_time2csv(model_name, t_sec=None, subj=None, loading=False, memory=False, percentUsed=None, total=None, free=None, used=None):
+    base_path = '/data/users2/washbee/speedrun/'
+
+    # Consolidate filename determination
+    if loading:
+        filename = 'bm.loading'
+    else:
+        filename = 'bm.events'
+        
+    if memory:
+        filename += '.memory'
+
+    filename += '.csv'
+    filename = base_path + filename
+
+    # Define initial list
+    List = [model_name, t_sec, hostname, subj]
+    
+    # If memory flag is true, append memory related info
+    if memory:
+        List = [model_name, percentUsed, total, free, used, hostname, subj]
+
+    if not os.path.exists(filename):
+        # Create the file
+        with open(filename, 'w') as file:
+            # Perform any initial operations on the file, if needed
+            print("File created.")
+
+    with open(filename, 'a') as f_object:
+        writer_object = writer(f_object)
+        writer_object.writerow(List)
+
+def printSpaceUsage(info_flag = False):
+    msgs = ""
+    for i in range(deviceCount):
+        nvidia_smi.nvmlInit()
+        handle = nvidia_smi.nvmlDeviceGetHandleByIndex(i)
+        info = nvidia_smi.nvmlDeviceGetMemoryInfo(handle)
+        if info_flag:
+            return (100*info.free/info.total), info.total, info.free, info.used
+        
+        msgs += '\n'
+        msgs += "Device {}: {}, Memory : ({:.2f}% free): {}(total), {} (free), {} (used)".format(i, nvidia_smi.nvmlDeviceGetName(handle), 100*info.free/info.total, info.total, info.free, info.used)
+        nvidia_smi.nvmlShutdown()
+
+    msgs+="\nMax Memory occupied by tensors: "+ str(torch.cuda.max_memory_allocated(device=None))
+    msgs+="\nMax Memory Cached: "+ str(torch.cuda.max_memory_cached(device=None))
+    msgs+="\nCurrent Memory occupied by tensors: "+ str(torch.cuda.memory_allocated(device=None))
+    msgs+="\nCurrent Memory cached occupied by tensors: "+str(torch.cuda.memory_cached(device=None))
+    msgs+="\n"
+    return str(msgs)
+
 def get_data_hash(data):
     # Convert data to a serialized string representation
     tensor_bytes = data.numpy().tobytes()
@@ -63,19 +115,6 @@ def close_file():
         print("No file is open.")
 
 
-def write_time2csv(model_name, t_sec, hash_subj_id, loading=False):
-    List = [model_name, t_sec,hostname, hash_subj_id]
-    print(t_sec)
-    filename = '/data/users2/washbee/speedrun/bm.events.csv'
-    if loading is True:
-        filename = '/data/users2/washbee/speedrun/bm.loading.csv'
-    
-        
-    with open(filename, 'a') as f_object:
-        writer_object = writer(f_object)
-        writer_object.writerow(List)
-        f_object.flush()
-        #f_object.close()
 
 nvidia_smi.nvmlInit()
 
@@ -97,22 +136,6 @@ def printModelSize(model):
     print('\n\n\n\n')
 
 
-def printSpaceUsage():
-    nvidia_smi.nvmlInit()
-    msgs = ""
-    for i in range(deviceCount):
-        handle = nvidia_smi.nvmlDeviceGetHandleByIndex(i)
-        info = nvidia_smi.nvmlDeviceGetMemoryInfo(handle)
-        #print("Device {}: {}, Memory : ({:.2f}% free): {}(total), {} (free), {} (used)".format(i, nvidia_smi.nvmlDeviceGetName(handle), 100*info.free/info.total, info.total, info.free, info.used))
-        msgs += '\n'
-        msgs += "Device {}: {}, Memory : ({:.2f}% free): {}(total), {} (free), {} (used)".format(i, nvidia_smi.nvmlDeviceGetName(handle), 100*info.free/info.total, info.total, info.free, info.used)
-        nvidia_smi.nvmlShutdown()
-    msgs+="\nMax Memory occupied by tensors: "+ str(torch.cuda.max_memory_allocated(device=None))
-    msgs+="\nMax Memory Cached: "+ str(torch.cuda.max_memory_cached(device=None))
-    msgs+="\nCurrent Memory occupied by tensors: "+ str(torch.cuda.memory_allocated(device=None))
-    msgs+="\nCurrent Memory cached occupied by tensors: "+str(torch.cuda.memory_cached(device=None))
-    msgs+="\n"
-    return msgs
     
 # A logger for this file
 logger = logging.getLogger(__name__)
@@ -293,9 +316,9 @@ def predict_app(cfg):
     os.makedirs(cfg.outputs.output_dir, exist_ok=True)
     count = 0
     b = datetime.datetime.now()
-    t_sec = (b-a).total_seconds()
-    write_time2csv('CorticalFlow', t_sec, "", loading=True)
-
+    write_time2csv('corticalflow', t_sec = (b-a).total_seconds(), loading=True)
+    percentUsed,total,free,used = printSpaceUsage(info_flag=True)
+    write_time2csv('corticalflow',percentUsed=percentUsed, total=total, free=free, used=used,loading=True,memory=True)
     with torch.no_grad():                
         for ite, data in enumerate(test_dataloader):
             a = datetime.datetime.now()
@@ -379,11 +402,10 @@ def predict_app(cfg):
             msgs = printSpaceUsage()
             GPU_msgs.append(stage + msgs + '\n\n\n')
 
-
             b = datetime.datetime.now()
-            t_sec = (b-a).total_seconds()
-            write_time2csv('CorticalFlow', t_sec, str(subject_ids))
-            logger.info("{} total seconds for batch.".format(t_sec))
+            write_time2csv('corticalflow', t_sec = (b-a).total_seconds())
+            percentUsed,total,free,used = printSpaceUsage(info_flag=True)
+            write_time2csv('corticalflow',memory=True, percentUsed=percentUsed,total=total,free=free,used=used)
             
             # Check space usage 
             #print('g')

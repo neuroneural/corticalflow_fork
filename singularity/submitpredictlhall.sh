@@ -2,8 +2,8 @@
 #SBATCH -n 1
 #SBATCH -c 4
 #SBATCH --mem=30g
-#SBATCH -p qTRDGPU
-#SBATCH --gres=gpu:RTX:1
+#SBATCH -p qTRDGPUH
+#SBATCH --gres=gpu:V100:1
 #SBATCH -t 1-00:00
 #SBATCH -J cfpredlh
 #SBATCH -e jobs/error%A.err
@@ -19,7 +19,7 @@ sleep 5s
 source /usr/share/lmod/lmod/init/bash
 module use /application/ubuntumodules/localmodules
 module load singularity/3.10.2
-singularity exec --nv --bind /data/users2/washbee/speedrun/corticalflow_fork:/corticalflow,/data,/data/users2/washbee/outdir:/subj /data/users2/washbee/containers/speedrun/cf_bm_sandbox/ /corticalflow/singularity/predictlhall.sh &
+singularity exec --nv --bind /data/users2/washbee/speedrun/corticalflow_fork:/corticalflow,/data/users2/washbee/speedrun/deepcsr-preprocessed:/subj /data/users2/washbee/containers/speedrun/cf_bm_sandbox/ /corticalflow/singularity/predictlhall.sh &
 
 wait
 

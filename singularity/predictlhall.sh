@@ -13,13 +13,13 @@ white_model.nb_features="[[[16,32,32,32],[32,32,32,32,32,16,16]],[[16,32],[32,32
 white_model.integration_method='RK4' \
 white_model.integration_steps="30" \
 white_model.share_flows=True \
-white_model.model_checkpoint=/corticalflow/resources/trained_models/CFPP_LEFT_WHITE.pth \
+white_model.model_checkpoint=/corticalflow/output_dir_lh_white/best_model_DT2.pth \
 pial_model.nb_features="[[[16,32],[32,32,16,16]],[[16,32],[32,32,16,16]],[[16,32],[32,32,16,16]]]" \
 pial_model.integration_method='RK4' \
 pial_model.integration_steps=30 \
 pial_model.share_flows=True \
-pial_model.model_checkpoint=/corticalflow/resources/trained_models/CFPP_LEFT_PIAL.pth \
-outputs.output_dir=/data/users2/washbee/corticalflow/cfpp/output_lh/ \
+pial_model.model_checkpoint=/corticalflow/output_dir_lh_pial_shortenedepochs/best_model_DT2.pth \
+outputs.output_dir=/corticalflow/output_lh_hcptrained/ \
 outputs.out_deform=[0,1,2] \
 outputs.out_format=freesurfer \
 

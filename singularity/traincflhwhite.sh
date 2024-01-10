@@ -6,5 +6,6 @@ dataset.split_file=/corticalflow/subjs.csv \
 dataset.train_split_name=train \
 dataset.val_split_name=val \
 dataset.surface_name='lh_white' \
-model.templates=['/corticalflow/resources/smooth_templates/lh_white_smooth_40k.obj','/corticalflow/resources/smooth_templates/lh_white_smooth_140k.obj','/corticalflow/resources/smooth_templates/lh_white_smooth_380k.obj'] \
+model.templates=['/corticalflow/resources/neurips_templates/lh_white_template_30k.obj','/corticalflow/resources/neurips_templates/lh_white_template_135k.obj','/corticalflow/resources/neurips_templates/lh_white_template_435k.obj'] \
+model.integration_method='NeurIPS' \
 outputs.output_dir=/corticalflow/output2/cf/out_lh_white

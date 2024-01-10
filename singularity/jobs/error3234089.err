@@ -1,0 +1,47 @@
+/corticalflow/predict.py:20: UserWarning: 
+The version_base parameter is not specified.
+Please specify a compatability version level, or None.
+Will assume defaults for version 1.1
+  @hydra.main(config_path="configs", config_name='predict')
+Traceback (most recent call last):
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/pathlib.py", line 1273, in mkdir
+    self._accessor.mkdir(self, mode)
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch2/fon022/CFPP/checkpoints/predict_debug'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/pathlib.py", line 1273, in mkdir
+    self._accessor.mkdir(self, mode)
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch2/fon022/CFPP/checkpoints'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/pathlib.py", line 1273, in mkdir
+    self._accessor.mkdir(self, mode)
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch2/fon022/CFPP'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/pathlib.py", line 1273, in mkdir
+    self._accessor.mkdir(self, mode)
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch2/fon022'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/pathlib.py", line 1277, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/pathlib.py", line 1277, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/pathlib.py", line 1277, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  [Previous line repeated 1 more time]
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/pathlib.py", line 1273, in mkdir
+    self._accessor.mkdir(self, mode)
+OSError: [Errno 30] Read-only file system: '/scratch2'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+/corticalflow/singularity/predictlhall.sh: line 23: outputs.output_dir=/data/users2/washbee/corticalflow/cfpp/output_lh/: No such file or directory

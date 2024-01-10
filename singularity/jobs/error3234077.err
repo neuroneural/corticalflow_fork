@@ -1,0 +1,1 @@
+FATAL:   could not open image /data,: failed to retrieve path for /data,: lstat /data,: no such file or directory

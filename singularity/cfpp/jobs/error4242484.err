@@ -1,0 +1,11 @@
+/corticalflow/train.py:19: UserWarning: 
+The version_base parameter is not specified.
+Please specify a compatability version level, or None.
+Will assume defaults for version 1.1
+  @hydra.main(config_path="configs", config_name='train')
+LexerNoViableAltException:  
+                           ^
+See https://hydra.cc/docs/next/advanced/override_grammar/basic for details
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+/corticalflow/singularity/cfpp/traincfpplhwhite.sh: line 11: model.integration_method=RK4: command not found

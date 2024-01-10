@@ -1,0 +1,4 @@
+/corticalflow/bm.predict.py:144: UserWarning: 
+The version_base parameter is not specifislurmstepd: error: *** JOB 3286614 ON arctrdagn009 CANCELLED AT 2023-07-06T23:29:42 ***
+slurmstepd: error: *** JOB 3286613 ON arctrdagn004 CANCELLED AT 2023-07-06T23:29:42 ***
+slurmstepd: error: *** JOB 3286612 ON arctrdagn017 CANCELLED AT 2023-07-06T23:29:42 ***

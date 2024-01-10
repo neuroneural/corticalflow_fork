@@ -1,0 +1,2 @@
+WARNING: skipping mount of /data/users2/washbee/outdir: stat /data/users2/washbee/outdir: no such file or directory
+FATAL:   container creation failed: mount /data/users2/washbee/outdir->/subj error: while mounting /data/users2/washbee/outdir: mount source /data/users2/washbee/outdir doesn't exist

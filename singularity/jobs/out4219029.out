@@ -1,0 +1,272 @@
+[2023-12-19 21:50:28,959][__main__][INFO] - Training Cortical Flow
+Config:
+user_config: null
+dataset:
+  path: /subj/
+  split_file: /corticalflow/subjs.csv
+  train_split_name: train
+  val_split_name: val
+  surface_name: rh_pial
+trainer:
+  img_batch_size: 3
+  points_per_image: 150000
+  train_log_interval: 10
+  checkpoint_interval: 10000
+  evaluate_interval: 5000
+  device: cuda:0
+  resume: null
+  debug: false
+model:
+  number_of_iterations:
+  - 70000
+  - 70000
+  - 70000
+  nb_features:
+  - - - 16
+      - 32
+      - 32
+      - 32
+    - - 32
+      - 32
+      - 32
+      - 32
+      - 32
+      - 16
+      - 16
+  - - - 16
+      - 32
+    - - 32
+      - 32
+      - 16
+      - 16
+  - - - 16
+      - 32
+    - - 32
+      - 32
+      - 16
+      - 16
+  templates:
+  - /corticalflow/resources/neurips_templates/rh_pial_template_30k.obj
+  - /corticalflow/resources/neurips_templates/rh_pial_template_135k.obj
+  - /corticalflow/resources/neurips_templates/rh_pial_template_435k.obj
+  integration_method: NeurIPS
+  integration_steps: 30
+  share_flows: true
+objective:
+  chamffer_weight:
+  - 1.0
+  - 1.0
+  - 1.0
+  edge_loss_weight:
+  - 1.0
+  - 1.0
+  - 1.0
+optimizer:
+  name: Adam
+  lr:
+  - 0.0001
+  - 0.0001
+  - 0.0001
+outputs:
+  output_dir: /corticalflow/output2/cf/out_rh_pial
+
+[2023-12-19 21:50:28,982][__main__][INFO] - 732 subjects loaded for training
+[2023-12-19 21:50:28,986][__main__][INFO] - 58 subjects loaded for validation
+[2023-12-19 21:50:35,598][__main__][INFO] - Model setup:
+CorticalFlow(
+  (deform_blocks): ModuleList(
+    (0): DeformationBlock(
+      (encoder): Unet(
+        (downarm): ModuleList(
+          (0): ConvBlock(
+            (main): Conv3d(1, 16, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (main): Conv3d(16, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (main): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (activation): LeakyReLU(negative_slope=0.2)
+          )
+          (3): ConvBlock(
+            (main): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (uparm): ModuleList(
+          (0): Sequential(
+            (0): ConvBlock(
+              (main): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+              (activation): LeakyReLU(negative_slope=0.2)
+            )
+            (1): Upsample(scale_factor=2.0, mode=nearest)
+          )
+          (1): Sequential(
+            (0): ConvBlock(
+              (main): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+              (activation): LeakyReLU(negative_slope=0.2)
+            )
+            (1): Upsample(scale_factor=2.0, mode=nearest)
+          )
+          (2): Sequential(
+            (0): ConvBlock(
+              (main): Conv3d(64, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+              (activation): LeakyReLU(negative_slope=0.2)
+            )
+            (1): Upsample(scale_factor=2.0, mode=nearest)
+          )
+          (3): Sequential(
+            (0): ConvBlock(
+              (main): Conv3d(48, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+              (activation): LeakyReLU(negative_slope=0.2)
+            )
+            (1): Upsample(scale_factor=2.0, mode=nearest)
+          )
+        )
+        (extras): ModuleList(
+          (0): ConvBlock(
+            (main): Conv3d(33, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (main): Conv3d(32, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (activation): LeakyReLU(negative_slope=0.2)
+          )
+          (2): ConvBlock(
+            (main): Conv3d(16, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+      )
+      (flow): Conv3d(16, 3, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (deformer): DiffeoMeshDeformer(
+        (integrate): IntegratePointWiseNeurips(
+          (interpolator): PointPooling()
+        )
+      )
+    )
+    (1): DeformationBlock(
+      (encoder): Unet(
+        (downarm): ModuleList(
+          (0): ConvBlock(
+            (main): Conv3d(4, 16, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (main): Conv3d(16, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (uparm): ModuleList(
+          (0): Sequential(
+            (0): ConvBlock(
+              (main): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+              (activation): LeakyReLU(negative_slope=0.2)
+            )
+            (1): Upsample(scale_factor=2.0, mode=nearest)
+          )
+          (1): Sequential(
+            (0): ConvBlock(
+              (main): Conv3d(48, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+              (activation): LeakyReLU(negative_slope=0.2)
+            )
+            (1): Upsample(scale_factor=2.0, mode=nearest)
+          )
+        )
+        (extras): ModuleList(
+          (0): ConvBlock(
+            (main): Conv3d(36, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (main): Conv3d(16, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+      )
+      (flow): Conv3d(16, 3, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (deformer): DiffeoMeshDeformer(
+        (integrate): IntegratePointWiseNeurips(
+          (interpolator): PointPooling()
+        )
+      )
+    )
+    (2): DeformationBlock(
+      (encoder): Unet(
+        (downarm): ModuleList(
+          (0): ConvBlock(
+            (main): Conv3d(7, 16, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (main): Conv3d(16, 32, kernel_size=(3, 3, 3), stride=(2, 2, 2), padding=(1, 1, 1))
+            (activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+        (uparm): ModuleList(
+          (0): Sequential(
+            (0): ConvBlock(
+              (main): Conv3d(32, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+              (activation): LeakyReLU(negative_slope=0.2)
+            )
+            (1): Upsample(scale_factor=2.0, mode=nearest)
+          )
+          (1): Sequential(
+            (0): ConvBlock(
+              (main): Conv3d(48, 32, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+              (activation): LeakyReLU(negative_slope=0.2)
+            )
+            (1): Upsample(scale_factor=2.0, mode=nearest)
+          )
+        )
+        (extras): ModuleList(
+          (0): ConvBlock(
+            (main): Conv3d(39, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (activation): LeakyReLU(negative_slope=0.2)
+          )
+          (1): ConvBlock(
+            (main): Conv3d(16, 16, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (activation): LeakyReLU(negative_slope=0.2)
+          )
+        )
+      )
+      (flow): Conv3d(16, 3, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (deformer): DiffeoMeshDeformer(
+        (integrate): IntegratePointWiseNeurips(
+          (interpolator): PointPooling()
+        )
+      )
+    )
+  )
+)
+[2023-12-19 21:50:35,616][__main__][INFO] - Tensorboard logs saved to /corticalflow/output2/cf/out_rh_pial/tb_logs
+[2023-12-19 21:50:35,616][__main__][INFO] - Training deformation 0
+[2023-12-19 21:50:35,772][__main__][INFO] - Train deform 0: Template mesh <trimesh.Trimesh(vertices.shape=(30235, 3), faces.shape=(60466, 3))> read from /corticalflow/resources/neurips_templates/rh_pial_template_30k.obj
+[2023-12-19 21:50:35,806][__main__][INFO] - Train deform 0: Shift=tensor([[[ 25.5336, -18.7108,  13.7256]]], device='cuda:0') and Scale=97.40980910746508 for template mesh.
+[2023-12-19 21:50:35,807][__main__][INFO] - Train deform 0: number of learnable parameters: 300115/519865
+[2023-12-19 21:50:35,807][__main__][INFO] - Train deform 0: Optimizer setup:
+Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    lr: 0.0001
+    weight_decay: 0
+)
+[2023-12-19 21:50:35,807][__main__][INFO] - Starting train deformation 0 from 1 iterations with best validation loss of 3.4028234663852886e+38
+[2023-12-19 21:50:55,425][__main__][INFO] - Training: deform=0, Ite=10, Losses=defaultdict(<class 'float'>, {'chamffer_points': 0.03862841613590717, 'edge_loss': 0.0002756682806648314, 'loss': 0.038904083892703056}), AvgIteTime=1.96 secs
+[2023-12-19 21:51:09,713][__main__][INFO] - Training: deform=0, Ite=20, Losses=defaultdict(<class 'float'>, {'chamffer_points': 0.03963603526353836, 'edge_loss': 0.0002756682806648314, 'loss': 0.03991170302033424}), AvgIteTime=1.43 secs
+[2023-12-19 21:51:23,744][__main__][INFO] - Training: deform=0, Ite=30, Losses=defaultdict(<class 'float'>, {'chamffer_points': 0.039332208782434465, 'edge_loss': 0.0002756682806648314, 'loss': 0.03960787653923035}), AvgIteTime=1.40 secs
+[2023-12-19 21:51:37,687][__main__][INFO] - Training: deform=0, Ite=40, Losses=defaultdict(<class 'float'>, {'chamffer_points': 0.03976724818348885, 'edge_loss': 0.0002756682806648314, 'loss': 0.04004291594028473}), AvgIteTime=1.39 secs
+[2023-12-19 21:51:51,684][__main__][INFO] - Training: deform=0, Ite=50, Losses=defaultdict(<class 'float'>, {'chamffer_points': 0.03936961479485035, 'edge_loss': 0.0002756682806648314, 'loss': 0.03964528255164623}), AvgIteTime=1.40 secs
+[2023-12-19 21:52:05,554][__main__][INFO] - Training: deform=0, Ite=60, Losses=defaultdict(<class 'float'>, {'chamffer_points': 0.03943956941366196, 'edge_loss': 0.0002756682806648314, 'loss': 0.03971523717045784}), AvgIteTime=1.39 secs
+[2023-12-19 21:52:19,687][__main__][INFO] - Training: deform=0, Ite=70, Losses=defaultdict(<class 'float'>, {'chamffer_points': 0.038748928159475324, 'edge_loss': 0.0002756682806648314, 'loss': 0.03902459591627121}), AvgIteTime=1.41 secs
+[2023-12-19 21:52:33,878][__main__][INFO] - Training: deform=0, Ite=80, Losses=defaultdict(<class 'float'>, {'chamffer_points': 0.03961323089897632, 'edge_loss': 0.0002756682806648314, 'loss': 0.039888898655772206}), AvgIteTime=1.42 secs
+[2023-12-19 21:52:47,701][__main__][INFO] - Training: deform=0, Ite=90, Losses=defaultdict(<class 'float'>, {'chamffer_points': 0.03927987441420555, 'edge_loss': 0.0002756682806648314, 'loss': 0.039555542171001434}), AvgIteTime=1.38 secs
+[2023-12-19 21:53:01,865][__main__][INFO] - Training: deform=0, Ite=100, Losses=defaultdict(<class 'float'>, {'chamffer_points': 0.0394045140594244, 'edge_loss': 0.0002756682806648314, 'loss': 0.03968018181622028}), AvgIteTime=1.42 secs
+[2023-12-19 21:53:16,123][__main__][INFO] - Training: deform=0, Ite=110, Losses=defaultdict(<class 'float'>, {'chamffer_points': 0.039345303922891615, 'edge_loss': 0.0002756682806648314, 'loss': 0.0396209716796875}), AvgIteTime=1.43 secs
+[2023-12-19 21:53:30,200][__main__][INFO] - Training: deform=0, Ite=120, Losses=defaultdict(<class 'float'>, {'chamffer_points': 0.03907897844910622, 'edge_loss': 0.0002756682806648314, 'loss': 0.0393546462059021}), AvgIteTime=1.41 secs
+[2023-12-19 21:53:44,623][__main__][INFO] - Training: deform=0, Ite=130, Losses=defaultdict(<class 'float'>, {'chamffer_points': 0.03943470902740955, 'edge_loss': 0.0002756682806648314, 'loss': 0.039710376784205435}), AvgIteTime=1.44 secs
+[2023-12-19 21:53:59,093][__main__][INFO] - Training: deform=0, Ite=140, Losses=defaultdict(<class 'float'>, {'chamffer_points': 0.039188366010785104, 'edge_loss': 0.0002756682806648314, 'loss': 0.03946403376758099}), AvgIteTime=1.45 secs

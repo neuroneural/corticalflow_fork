@@ -1,0 +1,84 @@
+[2023-06-28 20:32:31,989][__main__][INFO] - Predicting surfaces with Cortical Flow
+Config:
+user_config: null
+inputs:
+  data_type: formatted
+  path: /subj/
+  split_name: test
+  split_file: /corticalflow/subjs.csv
+  hemisphere: lh
+  device: cuda:0
+  template: /corticalflow/resources/smooth_templates/lh_white_smooth_380k.obj
+white_model:
+  nb_features:
+  - - - 16
+      - 32
+      - 32
+      - 32
+    - - 32
+      - 32
+      - 32
+      - 32
+      - 32
+      - 16
+      - 16
+  - - - 16
+      - 32
+    - - 32
+      - 32
+      - 16
+      - 16
+  - - - 16
+      - 32
+    - - 32
+      - 32
+      - 16
+      - 16
+  integration_method: RK4
+  integration_steps: 30
+  share_flows: true
+  model_checkpoint: /corticalflow/output_dir_lh_white/best_model_DT2.pth
+pial_model:
+  nb_features:
+  - - - 16
+      - 32
+    - - 32
+      - 32
+      - 16
+      - 16
+  - - - 16
+      - 32
+    - - 32
+      - 32
+      - 16
+      - 16
+  - - - 16
+      - 32
+    - - 32
+      - 32
+      - 16
+      - 16
+  integration_method: RK4
+  integration_steps: 30
+  share_flows: true
+  model_checkpoint: /corticalflow/output_dir_lh_pial_shortenedepochs/best_model_DT2.pth
+outputs:
+  output_dir: /corticalflow/output_lh_hcptrained_benchmarks/
+  out_deform:
+  - 0
+  - 1
+  - 2
+  out_format: freesurfer
+
+[2023-06-28 20:32:31,990][__main__][INFO] - loading from formatted dataset...
+[2023-06-28 20:32:31,998][__main__][INFO] - 107 subjects loaded for test in 0.0082 secs
+[2023-06-28 20:32:33,004][__main__][INFO] - Template mesh <trimesh.Trimesh(vertices.shape=(379970, 3), faces.shape=(759936, 3))> read from /corticalflow/resources/smooth_templates/lh_white_smooth_380k.obj
+
+*********empty cache, before loading white model() 
+ 
+Device 0: NVIDIA GeForce RTX 2080 Ti, Memory : (97.80% free): 11811160064(total), 11550785536 (free), 260374528 (used)
+Max Memory occupied by tensors: 0
+Max Memory Cached: 0
+Current Memory occupied by tensors: 0
+Current Memory cached occupied by tensors: 0
+

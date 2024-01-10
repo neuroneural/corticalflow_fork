@@ -9,7 +9,7 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=washbee1@student.gsu.edu
 #SBATCH --oversubscribe
-#SBATCH -J cflhtr
+#SBATCH -J cflhwtr
 #SBATCH -e jobs/error%A.err
 #SBATCH -o jobs/out%A.out
 

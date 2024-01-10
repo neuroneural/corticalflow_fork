@@ -1,0 +1,37 @@
+/corticalflow/predict.py:20: UserWarning: 
+The version_base parameter is not specified.
+Please specify a compatability version level, or None.
+Will assume defaults for version 1.1
+  @hydra.main(config_path="configs", config_name='predict')
+/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/hydra/_internal/hydra.py:127: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/next/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  configure_logging=with_log_configuration,
+Error executing job with overrides: ['inputs.data_type=formatted', 'inputs.path=/subj/', 'inputs.split_name=test', 'inputs.split_file=/corticalflow/subjs.csv', 'inputs.hemisphere=lh', 'inputs.device=cuda:0', 'inputs.template=/corticalflow/resources/neurips_templates/lh_white_template_435k.obj', 'white_model.integration_method=RK4', 'white_model.integration_steps=30', 'white_model.share_flows=True', 'white_model.model_checkpoint=/corticalflow/output2/corticalflow_euler_neurips/out_lh_white/best_model_DT2.pth', 'pial_model=null', 'outputs.output_dir=/corticalflow/output2/corticalflow_euler_neurips/out_lh_white/']
+Traceback (most recent call last):
+  File "/corticalflow/predict.py", line 124, in predict_app
+    _, _, _, pred_verts_white = white_model(mri_vox, mri_affine, template_verts, white_model_use_deforms);
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/corticalflow/src/models.py", line 55, in forward
+    scale, flow_field, flow_field_int, pred_verts = self.deform_blocks[d_idx](input, input_affine, template_verts)
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/corticalflow/src/models.py", line 93, in forward
+    x = self.encoder(input)
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/corticalflow/src/models.py", line 234, in forward
+    x = layer(x)
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/corticalflow/src/models.py", line 326, in forward
+    out = self.activation(out)
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/torch/nn/modules/activation.py", line 714, in forward
+    return F.leaky_relu(input, self.negative_slope, self.inplace)
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/torch/nn/functional.py", line 1309, in leaky_relu
+    result = torch._C._nn.leaky_relu(input, negative_slope)
+RuntimeError: CUDA out of memory. Tried to allocate 2.11 GiB (GPU 0; 10.75 GiB total capacity; 4.64 GiB already allocated; 2.07 GiB free; 7.64 GiB reserved in total by PyTorch)
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

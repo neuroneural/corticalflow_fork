@@ -1,0 +1,19 @@
+/corticalflow/train.py:19: UserWarning: 
+The version_base parameter is not specified.
+Please specify a compatability version level, or None.
+Will assume defaults for version 1.1
+  @hydra.main(config_path="configs", config_name='train')
+/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/hydra/_internal/hydra.py:127: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/next/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  configure_logging=with_log_configuration,
+Error executing job with overrides: ['dataset.path=/subj/', 'dataset.split_file=/corticalflow/subjs.csv', 'dataset.train_split_name=train', 'dataset.val_split_name=val', 'dataset.surface_name=lh_pial', 'model.templates=[/corticalflow/resources/neurips_templates/lh_pial_template_30k.obj,/corticalflow/resources/neurips_templates/lh_pial_template_135k.obj,/corticalflow/resources/neurips_templates/lh_pial_template_435k.obj]', 'model.integration_method=NeurIPS', 'outputs.output_dir=/corticalflow/output2/cf/out_lh_pial']
+Traceback (most recent call last):
+  File "/corticalflow/train.py", line 61, in train_app
+    template_mesh = trimesh.load(cfg.model.templates[deform_train_idx])
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/trimesh/exchange/load.py", line 113, in load
+    resolver=resolver)
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/trimesh/exchange/load.py", line 623, in parse_file_args
+    raise ValueError('string is not a file: {}'.format(file_obj))
+ValueError: string is not a file: /corticalflow/resources/neurips_templates/lh_pial_template_30k.obj
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

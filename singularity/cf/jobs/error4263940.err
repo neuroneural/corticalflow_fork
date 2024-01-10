@@ -1,0 +1,25 @@
+/corticalflow/train.py:19: UserWarning: 
+The version_base parameter is not specified.
+Please specify a compatability version level, or None.
+Will assume defaults for version 1.1
+  @hydra.main(config_path="configs", config_name='train')
+/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/hydra/_internal/hydra.py:127: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/next/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  configure_logging=with_log_configuration,
+/home/users/washbee1/.local/lib/python3.7/site-packages/nibabel/spatialimages.py:496: UserWarning: Using large vector Freesurfer hack; header will not be compatible with SPM or FSL
+  hdr.set_data_shape(shape)
+Error executing job with overrides: ['dataset.path=/subj/', 'dataset.split_file=/corticalflow/subjs.csv', 'dataset.train_split_name=train', 'dataset.val_split_name=val', 'dataset.surface_name=rh_white', 'trainer.resume=/data/users2/washbee/speedrun/corticalflow_fork/output2/corticalflow_euler_neurips/out_rh_white/checkpoints/model_DT1_ite070000.pth', 'model.templates=[/corticalflow/resources/neurips_templates/rh_white_template_30k.obj,/corticalflow/resources/neurips_templates/rh_white_template_135k.obj,/corticalflow/resources/neurips_templates/rh_white_template_450k.obj]', 'model.integration_method=NeurIPS', 'outputs.output_dir=/corticalflow/output2/cf/out_rh_white']
+Traceback (most recent call last):
+  File "/corticalflow/train.py", line 76, in train_app
+    df_check, _, best_ch_prev = load_checkpoint(best_ckp_file, model=model)
+  File "/corticalflow/src/models.py", line 16, in load_checkpoint
+    chk_dict = torch.load(ckp_file)
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/torch/serialization.py", line 581, in load
+    with _open_file_like(f, 'rb') as opened_file:
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/torch/serialization.py", line 230, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/torch/serialization.py", line 211, in __init__
+    super(_open_file, self).__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: '/corticalflow/output2/cf/out_rh_white/best_model_DT1.pth'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

@@ -1,0 +1,9 @@
+/corticalflow/train.py:19: UserWarning: 
+The version_base parameter is not specified.
+Please specify a compatability version level, or None.
+Will assume defaults for version 1.1
+  @hydra.main(config_path="configs", config_name='train')
+/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/hydra/_internal/hydra.py:127: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/next/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  configure_logging=with_log_configuration,
+slurmstepd: error: *** JOB 4263936 ON arctrdgn001 CANCELLED AT 2024-01-08T23:28:17 ***

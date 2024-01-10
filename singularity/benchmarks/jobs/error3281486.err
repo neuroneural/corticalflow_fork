@@ -1,0 +1,19 @@
+/corticalflow/bm.predict.py:121: UserWarning: 
+The version_base parameter is not specified.
+Please specify a compatability version level, or None.
+Will assume defaults for version 1.1
+  @hydra.main(config_path="configs", config_name='predict')
+/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/hydra/_internal/hydra.py:127: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/next/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  configure_logging=with_log_configuration,
+/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/torch/cuda/memory.py:354: FutureWarning: torch.cuda.max_memory_cached has been renamed to torch.cuda.max_memory_reserved
+  FutureWarning)
+/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/torch/cuda/memory.py:346: FutureWarning: torch.cuda.memory_cached has been renamed to torch.cuda.memory_reserved
+  FutureWarning)
+Error executing job with overrides: ['inputs.data_type=formatted', 'inputs.path=/subj/', 'inputs.split_name=test', 'inputs.split_file=/corticalflow/bm.csv', 'inputs.hemisphere=lh', 'inputs.device=cuda:0', 'inputs.template=/corticalflow/resources/smooth_templates/lh_white_smooth_380k.obj', 'white_model.nb_features=[[[16,32,32,32],[32,32,32,32,32,16,16]],[[16,32],[32,32,16,16]],[[16,32],[32,32,16,16]]]', 'white_model.integration_method=RK4', 'white_model.integration_steps=30', 'white_model.share_flows=True', 'white_model.model_checkpoint=/corticalflow/output_dir_lh_white/best_model_DT2.pth', 'pial_model.nb_features=[[[16,32],[32,32,16,16]],[[16,32],[32,32,16,16]],[[16,32],[32,32,16,16]]]', 'pial_model.integration_method=RK4', 'pial_model.integration_steps=30', 'pial_model.share_flows=True', 'pial_model.model_checkpoint=/corticalflow/output_dir_lh_pial_shortenedepochs/best_model_DT2.pth', 'outputs.output_dir=/corticalflow/output_lh_hcptrained_benchmarks/', 'outputs.out_deform=[0,1,2]', 'outputs.out_format=freesurfer']
+Traceback (most recent call last):
+  File "/corticalflow/bm.predict.py", line 297, in predict_app
+    write_time2csv('CorticalFlow', t_sec, str(subject_ids), loading=True)
+UnboundLocalError: local variable 'subject_ids' referenced before assignment
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

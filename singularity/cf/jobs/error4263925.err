@@ -1,0 +1,23 @@
+/corticalflow/predict.py:20: UserWarning: 
+The version_base parameter is not specified.
+Please specify a compatability version level, or None.
+Will assume defaults for version 1.1
+  @hydra.main(config_path="configs", config_name='predict')
+/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/hydra/_internal/hydra.py:127: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/next/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  configure_logging=with_log_configuration,
+Error executing job with overrides: ['inputs.data_type=formatted', 'inputs.path=/subj/', 'inputs.split_name=test', 'inputs.split_file=/corticalflow/subjs.csv', 'inputs.hemisphere=rh', 'inputs.device=cuda:0', 'inputs.template=/corticalflow/resources/neurips_templates/rh_white_template_450k.obj', 'white_model.integration_method=NeurIPS', 'white_model.integration_steps=30', 'white_model.share_flows=True', 'white_model.model_checkpoint=/corticalflow/output2/corticalflow_euler_neurips/out_rh_white/best_model_DT2.pth', 'pial_model=null', 'outputs.output_dir=/corticalflow/output2/corticalflow_euler_neurips/out_rh_white/']
+Traceback (most recent call last):
+  File "/corticalflow/predict.py", line 73, in predict_app
+    best_df, best_ite, best_val_loss = load_checkpoint(cfg.white_model.model_checkpoint, model=white_model)
+  File "/corticalflow/src/models.py", line 16, in load_checkpoint
+    chk_dict = torch.load(ckp_file)
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/torch/serialization.py", line 581, in load
+    with _open_file_like(f, 'rb') as opened_file:
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/torch/serialization.py", line 230, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/opt/miniconda3/envs/corticalflow/lib/python3.7/site-packages/torch/serialization.py", line 211, in __init__
+    super(_open_file, self).__init__(open(name, mode))
+FileNotFoundError: [Errno 2] No such file or directory: '/corticalflow/output2/corticalflow_euler_neurips/out_rh_white/best_model_DT2.pth'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
